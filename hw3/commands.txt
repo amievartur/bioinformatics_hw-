@@ -1,0 +1,15 @@
+354  mkdir -p genome_alignment_work/{data,results,scripts}
+  355  ls
+  356  cd genome_alignment_work
+  357  ls
+  358  cd data
+  359  wget -O ecoli_k12.fna.gz "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz"
+  360  wget -O ecoli_o157.fna.gz "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/008/865/GCF_000008865.2_ASM886v2/GCF_000008865.2_ASM886v2_genomic.fna.gz"
+  361  gunzip *.fna.gz
+  362  wget -O ecoli_k12.gbff.gz "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.gbff.gz"
+  363  gunzip ecoli_k12.gbff.gz
+  364  ls -lh
+  365  cd ../results
+  366  nucmer --prefix=ecoli_opt --maxmatch --mincluster=100 --diagfactor=0.12        ../data/ecoli_k12.fna ../data/ecoli_o157.fna
+  367  show-snps -r -C -T ecoli_opt.delta > snps.tsv
+  368  head -5 snps.tsv
